@@ -6,10 +6,20 @@ import { apiKey } from "../app.config";
 
 export default function Home() {
 	function fetchData() {
-		fetch(`https://soccer.sportmonks.com/api/v2.0/teams?api_token=${apiKey}`)
+		let date = returnDate()
+		fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=${apiKey}`)
 			.then(response => response.json())
-			.then(data => setTeams(data.data[0].name));
+			.then(data => console.log(data));
+			
 	}
+function returnDate() {
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = today.getFullYear();
+
+	return yyyy + '-' + mm + '-' + dd;
+}		
 
 	const [count, setCount] = useState(0);
 	const [teams, setTeams] = useState([]);
