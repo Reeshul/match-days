@@ -7,27 +7,50 @@ import { apiKey } from "../app.config";
 let teamIdArray = []
 let upcomingFixturesHomeTeamIdArray = []
 
+
 export default function Home() {
+
+	// console.log(loadFixtures());
+
+	async function loadFixtures() {
+		console.log(teamIdArray[0]);
+		await fetchData();
+	}
+
+	
+
 	async function fetchData() {
 		let date = returnDate()
 		fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=${apiKey}`)
 			.then(response => response.json())
-			.then(data => {
+			.then(fixtures => {
 				fetch("/api/teams")
-				.then(res => res.json())
-				.then(data => teamIdArray.push(data))
-
-				upcomingFixturesHomeTeamIdArray.push(data)
-				console.log(typeof teamIdArray);
-				for(let i in upcomingFixturesHomeTeamIdArray){
-					// for(let j in teamIdArray){
-					// 	if(upcomingFixturesHomeTeamIdArray[0].data[i].localteam_id === teamIdArray[0].data[j].id){
-					// 		console.log(teamIdArray[j].name)
-					// 	}
-					// }
-				}
+					.then(res => res.json())
+					.then(teams => {teamIdArray.push(teams)
+					updateFixturesHtml(teamIdArray) 
+					})
+					.catch((error) => {
+						console.error('Error: Could not fetch from api/teams', error);
+					});
+				upcomingFixturesHomeTeamIdArray.push(fixtures)
 			})
-			console.log(teamIdArray[0])
+			.catch((error) => {
+				console.error('Error: Could not fetch from sportmonks', error);
+			});
+		
+	}
+
+	function updateFixturesHtml(teams, fixtures) {
+		console.log(teams)
+	}
+
+
+	for (let i in upcomingFixturesHomeTeamIdArray) {
+		for(let j in teamIdArray){
+			if(upcomingFixturesHomeTeamIdArray[0].data[i].localteam_id === teamIdArray[0].data[j].id){
+				console.log(teamIdArray[j].name)
+			}
+		}
 	}
 
 	function returnDate() {
@@ -48,9 +71,7 @@ export default function Home() {
 	})
 
 
-	async function loadFixtures() {
-		await fetchData();
-	}
+
 
 
 	return (
