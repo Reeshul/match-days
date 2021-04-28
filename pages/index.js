@@ -10,16 +10,7 @@ let upcomingFixturesHomeTeamIdArray = []
 
 export default function Home() {
 
-	// console.log(loadFixtures());
-
-	async function loadFixtures() {
-		console.log(teamIdArray[0]);
-		await fetchData();
-	}
-
-	
-
-	async function fetchData() {
+		async function fetchData() {
 		let date = returnDate()
 		fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=${apiKey}`)
 			.then(response => response.json())
@@ -42,29 +33,20 @@ export default function Home() {
 	}
 
 	function updateFixturesHtml(teams, fixtures) {
-		console.log(teams, fixtures)
+		console.log(fixtures);
 		let homeTeams = []
 		let teamZero = teams[0]
 		
 		for (let i in teamZero){
 			for(let j in fixtures.data){
-				console.log(j);
 				if (teamZero[i].id === fixtures.data[j].localteam_id) {
 					homeTeams.push(teamZero[i].name) 
 				}
 			}
 		} console.log(homeTeams);
-	}
+		setTeams(homeTeams)
+	} 
 
-
-
-	for (let i in upcomingFixturesHomeTeamIdArray) {
-		for(let j in teamIdArray){
-			if(upcomingFixturesHomeTeamIdArray[0].data[i].localteam_id === teamIdArray[0].data[j].id){
-				console.log(teamIdArray[j].name)
-			}
-		}
-	}
 
 	function returnDate() {
 		var today = new Date();
@@ -75,13 +57,12 @@ export default function Home() {
 		return yyyy + '-' + mm + '-' + 30;
 	}
 
-	const [count, setCount] = useState(0);
 	const [teams, setTeams] = useState([]);
 
 
 	useEffect(() => {
-		loadFixtures();
-	})
+		fetchData();
+	}, [])
 
 
 
@@ -100,9 +81,7 @@ export default function Home() {
 			<Location></Location>
 			<Map />
 
-			<button title="increment" onClick={() => setCount(count + 1)}>
-				{count}
-			</button>
+
 		</div>
 	);
 }
