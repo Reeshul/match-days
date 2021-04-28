@@ -24,15 +24,16 @@ export default function Home() {
 		fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=${apiKey}`)
 			.then(response => response.json())
 			.then(fixtures => {
+				upcomingFixturesHomeTeamIdArray.push(fixtures)
 				fetch("/api/teams")
 					.then(res => res.json())
 					.then(teams => {teamIdArray.push(teams)
-					updateFixturesHtml(teamIdArray) 
+					updateFixturesHtml(teamIdArray, fixtures) 
 					})
 					.catch((error) => {
 						console.error('Error: Could not fetch from api/teams', error);
 					});
-				upcomingFixturesHomeTeamIdArray.push(fixtures)
+				
 			})
 			.catch((error) => {
 				console.error('Error: Could not fetch from sportmonks', error);
@@ -41,8 +42,20 @@ export default function Home() {
 	}
 
 	function updateFixturesHtml(teams, fixtures) {
-		console.log(teams)
+		console.log(teams, fixtures)
+		let homeTeams = []
+		let teamZero = teams[0]
+		
+		for (let i in teamZero){
+			for(let j in fixtures.data){
+				console.log(j);
+				if (teamZero[i].id === fixtures.data[j].localteam_id) {
+					homeTeams.push(teamZero[i].name) 
+				}
+			}
+		} console.log(homeTeams);
 	}
+
 
 
 	for (let i in upcomingFixturesHomeTeamIdArray) {
