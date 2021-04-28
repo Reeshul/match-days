@@ -9,16 +9,25 @@ let upcomingFixturesHomeTeamIdArray = []
 
 export default function Home() {
 	async function fetchData() {
-		console.log("3")
 		let date = returnDate()
 		fetch(`https://soccer.sportmonks.com/api/v2.0/fixtures/date/${date}?api_token=${apiKey}`)
 			.then(response => response.json())
-			.then(data => upcomingFixturesHomeTeamIdArray.push(data));
-	}
+			.then(data => {
+				fetch("/api/teams")
+				.then(res => res.json())
+				.then(data => teamIdArray.push(data))
 
-	function fetchTeams() {
-		console.log("4")
-		fetch("/api/teams").then(res => res.json()).then(data => teamIdArray.push(data))
+				upcomingFixturesHomeTeamIdArray.push(data)
+				console.log(typeof teamIdArray);
+				for(let i in upcomingFixturesHomeTeamIdArray){
+					// for(let j in teamIdArray){
+					// 	if(upcomingFixturesHomeTeamIdArray[0].data[i].localteam_id === teamIdArray[0].data[j].id){
+					// 		console.log(teamIdArray[j].name)
+					// 	}
+					// }
+				}
+			})
+			console.log(teamIdArray[0])
 	}
 
 	function returnDate() {
@@ -27,7 +36,7 @@ export default function Home() {
 		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 		var yyyy = today.getFullYear();
 
-		return yyyy + '-' + mm + '-' + dd;
+		return yyyy + '-' + mm + '-' + 30;
 	}
 
 	const [count, setCount] = useState(0);
@@ -35,33 +44,15 @@ export default function Home() {
 
 
 	useEffect(() => {
-		console.log("1")
 		loadFixtures();
-
-
 	})
 
 
 	async function loadFixtures() {
-		console.log("2")
 		await fetchData();
-		await fetchTeams();
-		console.log("5")
-		
-		console.log(upcomingFixturesHomeTeamIdArray.length);
 	}
 
-	// function renderFixtures() {
-	// 	if (upcomingFixturesHomeTeamIdArray.length === 0)
-	// }
 
-
-
-
-
-
-
-	// console.log(upcomingFixturesHomeTeamIdArray)
 	return (
 		<div>
 			<Head>
