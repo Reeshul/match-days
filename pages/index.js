@@ -19,7 +19,7 @@ export default function Home() {
 				fetch("/api/teams")
 					.then(res => res.json())
 					.then(teams => {teamIdArray.push(teams)
-					updateFixturesHtml(teamIdArray, fixtures) 
+					updateFixturesArrays(teamIdArray, fixtures) 
 					})
 					.catch((error) => {
 						console.error('Error: Could not fetch from api/teams', error);
@@ -32,9 +32,9 @@ export default function Home() {
 		
 	}
 
-	function updateFixturesHtml(teams, fixtures) {
-		console.log(fixtures);
+	function updateFixturesArrays(teams, fixtures) {
 		let homeTeams = []
+		let awayTeams = []
 		let teamZero = teams[0]
 		
 		for (let i in teamZero){
@@ -43,9 +43,28 @@ export default function Home() {
 					homeTeams.push(teamZero[i].name) 
 				}
 			}
-		} console.log(homeTeams);
+		}
+
+		for (let i in teamZero){
+			for(let j in fixtures.data){
+				if (teamZero[i].id === fixtures.data[j].visitorteam_id) {
+					awayTeams.push(teamZero[i].name) 
+				}
+			}
+		}		
+		console.log(awayTeams)
+		updateFixturesHtml(homeTeams, awayTeams)
 		setTeams(homeTeams)
 	} 
+
+	function updateFixturesHtml(homeTeam, awayTeam) {
+		const fixtures = document.getElementById('fixturesArea')
+		let fixturesText = ''
+		for(let i in homeTeam) {
+			fixturesText += `${homeTeam[i]} vs ${awayTeam[i]} <br />`
+		}
+		fixtures.innerHTML = fixturesText
+	}
 
 
 	function returnDate() {
@@ -54,7 +73,7 @@ export default function Home() {
 		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
 		var yyyy = today.getFullYear();
 
-		return yyyy + '-' + mm + '-' + 30;
+		return yyyy + '-' + mm + '-' + dd;
 	}
 
 	const [teams, setTeams] = useState([]);
@@ -75,10 +94,11 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<h1>Match Days</h1>
-			<p>{teams}</p>
+
+			<p id='fixturesArea'></p>
 			<br />
 
-			<Location></Location>
+			{/* <Location></Location> */}
 			<Map />
 
 
