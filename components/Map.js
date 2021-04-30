@@ -36,7 +36,7 @@ const options = {
   zoomControl: true,
 }
 
-export default function Mappy() {
+export default function Mappy(props) {
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: googleApi,
     libraries,
@@ -66,10 +66,16 @@ export default function Mappy() {
         center={center}
         options={options}
         onLoad={onMapLoad}
-      ></GoogleMap>
+      >
+         <Marker position={{ lat: 51.504, lng: 0.1278 }} />
+         <Marker position={{ lat: 10, lng: 10 }} />
+      </GoogleMap>
+
     </div>
   )
 }
+
+<Mappy isMarkerShown />// Map with a Marker
 
 function Locate({panTo}) {
   return (
