@@ -21,6 +21,7 @@ export default function Home() {
           .then((teams) => {
             teamIdArray.push(teams);
             updateFixturesArrays(teamIdArray, fixtures);
+            updateMarkersArray(fixtures)
           })
           .catch((error) => {
             console.error("Error: Could not fetch from api/teams", error);
@@ -30,6 +31,24 @@ export default function Home() {
         console.error("Error: Could not fetch from sportmonks", error);
       });
   }
+
+  function updateMarkersArray(fixtures) {
+    let fixtureVenues = []
+
+    fetch("/api/venues")
+    .then((res) => res.json())
+    .then((venues) => {
+      for (let i in fixtures.data){
+        for(let j in venues) {
+          if (fixtures.data[i].venue_id === venues[j].id){
+            fixtureVenues.push(venues[j])
+          }
+         }
+      } setVenuesArray(fixtureVenues)
+    })
+  }
+
+
 
   function updateFixturesArrays(teams, fixtures) {
     let homeTeams = [];
@@ -75,7 +94,7 @@ export default function Home() {
   }
 
   const [teams, setTeams] = useState([]);
-
+  const [venuesArray, setVenuesArray] = useState([])
   useEffect(() => {
     fetchData();
   }, []);
@@ -91,7 +110,7 @@ export default function Home() {
       <br />
 
       {/* <Location></Location> */}
-      <Map />
+      <Map fixtureVenues={venuesArray}/>
     </div>
   );
 }

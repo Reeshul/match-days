@@ -42,6 +42,20 @@ export default function Mappy(props) {
     libraries,
   })
 
+  let latCoord = ''
+  let longCoord = ''
+
+  function coordinateSplit () {
+ 
+    let longNLat = props.fixtureVenues[0].coordinates.split(',')
+    latCoord += longNLat[0]
+    longCoord += longNLat[1]
+
+    console.log(longNLat)
+  }
+  coordinateSplit()
+  console.log(props.fixtureVenues)
+
   const mapRef = React.useRef()
   const onMapLoad = React.useCallback(map => {
     mapRef.current = map
@@ -67,7 +81,7 @@ export default function Mappy(props) {
         options={options}
         onLoad={onMapLoad}
       >
-         <Marker position={{ lat: 51.504, lng: 0.1278 }} />
+         <Marker position={{ lat: parseFloat(latCoord), lng: parseFloat(longCoord) }} />
          <Marker position={{ lat: 10, lng: 10 }} />
       </GoogleMap>
 
