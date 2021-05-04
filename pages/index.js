@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Map from "../components/Map";
 import Location from "../components/Location";
 import { apiKey } from "../app.config";
+import Layout from "../components/Layout"
 
 let teamIdArray = [];
 let upcomingFixturesHomeTeamIdArray = [];
@@ -101,16 +102,20 @@ export default function Home() {
   
 
   return (
+    <Layout>
     <div>
       <Head>
+      <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"></link>
         <title>Match Days</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Match Days</h1>
+      <h1 style={{fontFamily: 'Bungee Shade'}}>Match Days</h1>
       <p id="fixturesArea"></p>
       <br />
       {/* <Location></Location> */}
       {venuesArray.length > 0 && <Map fixtureVenues={venuesArray}/>}
     </div>
+    </Layout>
   );
 } 

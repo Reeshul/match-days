@@ -3,7 +3,7 @@ import React from "react";
 const Location = () => {
 	return (
 		<div>
-			<form>
+			<form >
 				Chuck your address here
 				<br />
 				<input></input>

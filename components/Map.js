@@ -26,8 +26,8 @@ import styles from './map.module.css'
 const Button = styled.button`
 background: transparent;
 border-radius: 3px;
-border: 2px solid black;
-color: black;
+border: 2px solid white;
+color: white;
 padding: 0.25em 1em;`
 
 
@@ -81,7 +81,7 @@ export default function Mappy(props) {
  
   return (
     <div>
-      <h1> Games <span role='img' aria-label='football'>⚽️</span></h1>
+      <h1 style={{fontFamily: 'Bungee Shade'}}> Games <span role='img' aria-label='football'>⚽️</span></h1>
       <div className={styles.location}>
       <Search panTo={panTo}/>
       <Locate panTo={panTo} />
