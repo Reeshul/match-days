@@ -90,7 +90,7 @@ export default function Home() {
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
 
-    return yyyy + "-" + mm + "-" + dd;
+    return yyyy + "-" + mm + "-" + '09';
   }
 
   const [teams, setTeams] = useState([]);
@@ -98,6 +98,7 @@ export default function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+  
 
   return (
     <div>
@@ -108,9 +109,8 @@ export default function Home() {
       <h1>Match Days</h1>
       <p id="fixturesArea"></p>
       <br />
-
       {/* <Location></Location> */}
-      <Map fixtureVenues={venuesArray}/>
+      {venuesArray.length > 0 && <Map fixtureVenues={venuesArray}/>}
     </div>
   );
-}
+} 

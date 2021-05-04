@@ -20,6 +20,16 @@ import {
   ComboboxOption,
 } from '@reach/combobox'
 import usePlacesAutocomplete from 'use-places-autocomplete'
+import styled from 'styled-components'
+import styles from './map.module.css'
+
+const Button = styled.button`
+background: transparent;
+border-radius: 3px;
+border: 2px solid black;
+color: black;
+padding: 0.25em 1em;`
+
 
 const libraries = ['places']
 const mapContainerStyle = {
@@ -72,8 +82,10 @@ export default function Mappy(props) {
   return (
     <div>
       <h1> Games <span role='img' aria-label='football'>⚽️</span></h1>
+      <div className={styles.location}>
       <Search panTo={panTo}/>
       <Locate panTo={panTo} />
+      </div>
       <GoogleMap 
         mapContainerStyle={mapContainerStyle}
         zoom={12}
@@ -93,7 +105,7 @@ export default function Mappy(props) {
 
 function Locate({panTo}) {
   return (
-    <button onClick={()=>{
+    <Button onClick={()=>{
       navigator.geolocation.getCurrentPosition(
         position => {
           panTo({
@@ -104,7 +116,7 @@ function Locate({panTo}) {
       () => null)
     }}>
       Use Location
-    </button>
+    </Button>
   )
 }
 
