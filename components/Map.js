@@ -3,12 +3,10 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  InfoWindow,
 } from '@react-google-maps/api'
-import { formatRelative } from 'date-fns'
 import { googleApi } from '../app.config.js'
 import mapStyles from './snazzyMaps'
-import UsePlacesAutocomplete, {
+import {
   getGeocode,
   getLatLng,
 } from 'use-places-autocomplete'
@@ -61,10 +59,9 @@ export default function Mappy(props) {
     latCoord += longNLat[0]
     longCoord += longNLat[1]
 
-    console.log(longNLat)
   }
   coordinateSplit()
-  console.log(props.fixtureVenues)
+  
 
   const mapRef = React.useRef()
   const onMapLoad = React.useCallback(map => {
