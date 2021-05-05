@@ -75,7 +75,6 @@ export default function Home() {
         }
       }
     }
-    console.log(awayTeams);
     updateFixturesHtml(homeTeams, awayTeams);
     setTeams(homeTeams);
   }
