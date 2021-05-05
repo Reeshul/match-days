@@ -1,8 +1,16 @@
 import React from "react";
-import styles from "./layout.module.css";
+import styled from "styled-components";
+
+const Wrapper = styled.div` 
+  display: flex;
+  margin: 0 auto;
+  background-color:black;
+  justify-content: center;
+  color: white;
+`
 
 const Layout = ({ children }) => {
-  return <div className={styles.wrapper}>{children}</div>;
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default Layout;
