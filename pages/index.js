@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Map from "../components/Map";
-import Location from "../components/Location";
 import { apiKey } from "../app.config";
 import Layout from "../components/Layout"
 
