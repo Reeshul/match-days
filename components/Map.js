@@ -1,14 +1,11 @@
 import React from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { googleApi } from "../app.config.js";
-
 import styles from "./map.module.css";
 import CoordinateSplit from './CoordinateSplit'
 import { latCoord, longCoord } from './CoordinateSplit'
 import EnterAddress from "./EnterAddress.jsx";
 import Locate from "./Locate.jsx";
-
-
 
 const libraries = ["places"];
 const mapContainerStyle = {
