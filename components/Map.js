@@ -12,6 +12,8 @@ import {
 import usePlacesAutocomplete from "use-places-autocomplete";
 import styled from "styled-components";
 import styles from "./map.module.css";
+import CoordinateSplit from './CoordinateSplit'
+import { latCoord, longCoord } from './CoordinateSplit'
 
 const Button = styled.button`
   background: transparent;
@@ -41,15 +43,8 @@ export default function Mappy(props) {
     libraries,
   });
 
-  let latCoord = "";
-  let longCoord = "";
-
-  function coordinateSplit() {
-    let longNLat = props.fixtureVenues[0].coordinates.split(",");
-    latCoord += longNLat[0];
-    longCoord += longNLat[1];
-  }
-  coordinateSplit();
+  
+  CoordinateSplit({props})
 
   const mapRef = React.useRef();
   const onMapLoad = React.useCallback((map) => {
@@ -91,7 +86,7 @@ export default function Mappy(props) {
       </GoogleMap>
     </div>
   );
-}
+  }
 
 <Mappy isMarkerShown />; // Map with a Marker
 
