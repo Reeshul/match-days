@@ -3,6 +3,12 @@ import React, { useState, useEffect } from "react";
 import Map from "../components/Map";
 import { apiKey } from "../app.config";
 import Layout from "../components/Layout";
+import styled from "styled-components"; 
+import { returnDate } from "../helpers/helpers";
+
+const FixturesArea = styled.p`
+  font-family: sans-serif;
+`;
 
 let teamIdArray = [];
 let upcomingFixturesHomeTeamIdArray = [];
@@ -83,15 +89,6 @@ export default function Home() {
     fixtures.innerHTML = fixturesText;
   }
 
-  function returnDate() {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear();
-
-    return yyyy + "-" + mm + "-" + "09";
-  }
-
   const [teams, setTeams] = useState([]);
   const [venuesArray, setVenuesArray] = useState([]);
   useEffect(() => {
@@ -111,7 +108,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <h1 style={{ fontFamily: "Bungee Shade" }}>Match Days</h1>
-        <p id="fixturesArea"></p>
+        <FixturesArea id="fixturesArea"></FixturesArea>
         <br />
         {/* <Location></Location> */}
         {venuesArray.length > 0 && <Map fixtureVenues={venuesArray} />}
