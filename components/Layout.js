@@ -1,12 +1,8 @@
-import React from 'react'
-import styles from './layout.module.css'
- 
-const Layout = ({children}) => {
-    return (
-        <div className={styles.wrapper}>
-            {children}
-        </div>
-    )
-}
+import React from "react";
+import styles from "./layout.module.css";
 
-export default Layout
+const Layout = ({ children }) => {
+  return <div className={styles.wrapper}>{children}</div>;
+};
+
+export default Layout;

@@ -2,7 +2,7 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Map from "../components/Map";
 import { apiKey } from "../app.config";
-import Layout from "../components/Layout"
+import Layout from "../components/Layout";
 
 let teamIdArray = [];
 let upcomingFixturesHomeTeamIdArray = [];
@@ -21,7 +21,7 @@ export default function Home() {
           .then((teams) => {
             teamIdArray.push(teams);
             updateFixturesArrays(teamIdArray, fixtures);
-            updateMarkersArray(fixtures)
+            updateMarkersArray(fixtures);
           })
           .catch((error) => {
             console.error("Error: Could not fetch from api/teams", error);
@@ -33,22 +33,21 @@ export default function Home() {
   }
 
   function updateMarkersArray(fixtures) {
-    let fixtureVenues = []
+    let fixtureVenues = [];
 
     fetch("/api/venues")
-    .then((res) => res.json())
-    .then((venues) => {
-      for (let i in fixtures.data){
-        for(let j in venues) {
-          if (fixtures.data[i].venue_id === venues[j].id){
-            fixtureVenues.push(venues[j])
+      .then((res) => res.json())
+      .then((venues) => {
+        for (let i in fixtures.data) {
+          for (let j in venues) {
+            if (fixtures.data[i].venue_id === venues[j].id) {
+              fixtureVenues.push(venues[j]);
+            }
           }
-         }
-      } setVenuesArray(fixtureVenues)
-    })
+        }
+        setVenuesArray(fixtureVenues);
+      });
   }
-
-
 
   function updateFixturesArrays(teams, fixtures) {
     let homeTeams = [];
@@ -90,31 +89,33 @@ export default function Home() {
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
 
-    return yyyy + "-" + mm + "-" + '09';
+    return yyyy + "-" + mm + "-" + "09";
   }
 
   const [teams, setTeams] = useState([]);
-  const [venuesArray, setVenuesArray] = useState([])
+  const [venuesArray, setVenuesArray] = useState([]);
   useEffect(() => {
     fetchData();
   }, []);
-  
 
   return (
     <Layout>
-    <div>
-      <Head>
-      <link rel="preconnect" href="https://fonts.gstatic.com"></link>
-      <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet"></link>
-        <title>Match Days</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <h1 style={{fontFamily: 'Bungee Shade'}}>Match Days</h1>
-      <p id="fixturesArea"></p>
-      <br />
-      {/* <Location></Location> */}
-      {venuesArray.length > 0 && <Map fixtureVenues={venuesArray}/>}
-    </div>
+      <div>
+        <Head>
+          <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+          <link
+            href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap"
+            rel="stylesheet"
+          ></link>
+          <title>Match Days</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <h1 style={{ fontFamily: "Bungee Shade" }}>Match Days</h1>
+        <p id="fixturesArea"></p>
+        <br />
+        {/* <Location></Location> */}
+        {venuesArray.length > 0 && <Map fixtureVenues={venuesArray} />}
+      </div>
     </Layout>
   );
-} 
+}
