@@ -5,7 +5,6 @@ import {
   Marker,
 } from '@react-google-maps/api'
 import { googleApi } from '../app.config.js'
-import mapStyles from './snazzyMaps'
 import {
   getGeocode,
   getLatLng,
@@ -39,7 +38,6 @@ const center = {
   lng: 0.1278
 }
 const options = {
-  styles: mapStyles,
   disableDefaultUI: true,
   zoomControl: true,
 }
