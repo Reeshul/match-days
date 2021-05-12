@@ -1,10 +1,15 @@
-export let latCoord = "";
-export let longCoord = "";
+export let latCoord = [];
+export let longCoord = [];
 
-const CoordinateSplit = ({props}) => {
-        let longNLat = props.fixtureVenues[0].coordinates.split(",");
-        latCoord += longNLat[0];
-        longCoord += longNLat[1];
+const CoordinateSplit = ({ props }) => {
+  for (let i = 0; props.fixtureVenues.length > i; i++) {
+    let longNLat = props.fixtureVenues[i].coordinates.split(",");
+    isEven(i) ? latCoord.push(longNLat[i]) : (longCoord += longNLat[i]);
+  }
+};
+
+function isEven(n) {
+  return n % 2 === 0;
 }
 
-export default CoordinateSplit
+export default CoordinateSplit;

@@ -55,6 +55,7 @@ export default function Home() {
       });
   }
 
+
   function updateFixturesArrays(teams, fixtures) {
     let homeTeams = [];
     let awayTeams = [];
@@ -93,6 +94,8 @@ export default function Home() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(venuesArray)
 
   return (
     <Layout>
